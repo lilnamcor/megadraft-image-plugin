@@ -4,9 +4,13 @@
   "description": "megadraft-image-plugin",
   "main": "lib/plugin.js",
   "dependencies": {
+    "aphrodite": "^1.2.3",
     "megadraft": "^0.4.26",
     "react": "15.2.1",
-    "react-dom": "15.2.1"
+    "react-dom": "15.2.1",
+    "react-dropzone": "^3.13.3",
+    "react-simple-popover": "^0.2.0",
+    "react-textarea-autosize": "^5.0.7"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",

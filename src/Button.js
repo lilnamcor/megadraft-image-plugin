@@ -6,6 +6,8 @@
 
 import React, {Component} from "react";
 
+import Dropzone from "react-dropzone";
+
 import Icon from "./icon.js";
 import constants from "./constants";
 import {insertDataBlock} from "megadraft";
@@ -18,19 +20,30 @@ export default class Button extends Component {
   }
 
   onClick(e) {
-    const data = {
-      type: constants.PLUGIN_TYPE,
-      caption: "Initial plugin text"
-    };
+    document.getElementById('fileinput').click();
+  }
 
-    this.props.onChange(insertDataBlock(this.props.editorState, data));
+  onDrop(acceptedFiles, rejectedFiles) {
+      const data = {
+          type:constants.PLUGIN_TYPE,
+          imageFile: acceptedFiles
+      }
+      this.props.onChange(insertDataBlock(this.props.editorState, data));
   }
 
   render() {
     return (
-      <button className={this.props.className} type="button" onClick={this.onClick} title={constants.PLUGIN_NAME}>
-        <Icon className="sidemenu__button__icon" />
-      </button>
+      <div>
+        <Dropzone 
+          id='fileinput'
+          onDrop={(acceptedFiles, rejectedFiles) => this.onDrop(acceptedFiles, rejectedFiles)}
+          multiple={false}
+          style={{display: "none"}}>
+        </Dropzone>
+        <button className={this.props.className} type="button" onClick={this.onClick} title={constants.PLUGIN_NAME}>
+          <Icon className="sidemenu__button__icon" />
+        </button>
+      </div>
     );
   }
 }
