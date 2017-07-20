@@ -82,7 +82,9 @@ export default class Block extends Component {
     var readOnly = this.props.blockProps.getInitialReadOnly();
     
     // Only add the mousedown event if we're not readonly.
-    readOnly ? document.addEventListener('mousedown', this.handleClickOut) : null
+    if (readOnly) {
+      document.addEventListener('mousedown', this.handleClickOut);
+    }
   }
 
   componentWillUnmount() {
@@ -92,6 +94,7 @@ export default class Block extends Component {
 
   render(){
     // TODO: what do we render if we don't have an image?
+    var readOnly = this.props.blockProps.getInitialReadOnly();
     return (
       <div className={css(styles.inputWrapper)}>
           {this.props.data.imageSrc
@@ -109,20 +112,24 @@ export default class Block extends Component {
                         ref={(image) => this.image = image}
                         className={css(styles.image, this.state.focus && styles.focus)}
                         style={{width:this.state.width}}
-                        onClick={this.props.blockProps.getInitialReadOnly() ? null : this.handleClick.bind(this)}
+                        onClick={readOnly ? null : this.handleClick.bind(this)}
                       />
                     </Popover>
                   </div>
-                  <TextAreaAutoSize
-                    onFocus={this._clearPlaceholder}
-                    onBlur={this._putPlaceholder}
-                    id='caption'
-                    rows={1}
-                    placeholder={this.state.placeholder}
-                    className={css(styles.input)}
-                    onChange={this._handleCaptionChange}
-                    value={this.props.data.caption}
-                  />
+                  {readOnly && this.props.data.caption || !readOnly
+                    ?   <TextAreaAutoSize
+                          onFocus={this._clearPlaceholder}
+                          onBlur={this._putPlaceholder}
+                          id='caption'
+                          rows={1}
+                          disabled={readOnly}
+                          placeholder={this.state.placeholder}
+                          className={css(styles.input)}
+                          onChange={this._handleCaptionChange}
+                          value={this.props.data.caption}
+                        />
+                    :   null
+                  }
                 </div>
           :   null
         }
