@@ -31,7 +31,7 @@ export default class Block extends Component {
     this.state = {
         placeholder: "Type caption here (optional)",
         open: false,
-        width: '50%',
+        width: '75%',
     }
 
     this.actions = [
@@ -124,6 +124,7 @@ var styles = StyleSheet.create({
     paddingBottom: '15px',
     width: '100%',
     textAlign: 'center',
+    resize: 'none',
   },
   imageDiv: {
     position: 'relative',

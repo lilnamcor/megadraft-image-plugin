@@ -22,10 +22,6 @@ const ICONS = [
 export default class ImageComponent extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      active: 'medium',
-    }
   }
 
   setSize(width, id) {
