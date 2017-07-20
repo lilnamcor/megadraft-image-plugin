@@ -3,6 +3,6 @@
  *
  * License: MIT
  */
-/*
- * YOUR STYLES HERE
- */
+.Popover-tip {
+  fill: '#303030';
+}
