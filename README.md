@@ -58,3 +58,10 @@ npm publish
 
 The sample plugin uses the extension icon from https://design.google.com/icons/
 under [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+## Some Photos
+
+![Alt text](/photos/demo_photo1.png)
+
+
+![Alt text](/photos/demo_photo2.png)
