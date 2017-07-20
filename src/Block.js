@@ -60,51 +60,43 @@ export default class Block extends Component {
   }
 
   changeWidth(width) {
-    console.log(width);
     this.setState({width: width});
   }
 
   render(){
+    // TODO: what do we render if we don't have an image?
     if (this.props.data.imageFile) {
       return (
-        <div>
-          {this.props.blockProps.getInitialReadOnly()
-            ?   <div>
-                  <p>"HELLO"</p>
-                </div>
-            :   <div className={css(styles.inputWrapper)}>
-                    <div className={css(styles.imageDiv)}>
-                      <Popover
-                        className={css(styles.popover)}
-                        body={<ImagePopover changeWidth={this.changeWidth}/>}
-                        preferPlace='above'
-                        onOuterAction={this.handleClick.bind(this)}
-                        isOpen={this.state.open}>
-                        <img
-                          src={this.props.data.imageFile[0].preview}
-                          ref='image'
-                          className={css(styles.image)}
-                          style={{width:this.state.width}}
-                          onClick={this.handleClick.bind(this)}
-                        />
-                      </Popover>
-                    </div>
-                    <TextAreaAutoSize
-                      onFocus={this._clearPlaceholder}
-                      onBlur={this._putPlaceholder}
-                      id='caption'
-                      rows={1}
-                      placeholder={this.state.placeholder}
-                      className={css(styles.input)}
-                      onChange={this._handleCaptionChange}
-                      value={this.props.data.caption}
-                    />
-                </div>
-          }
+        <div className={css(styles.inputWrapper)}>
+            <div className={css(styles.imageDiv)}>
+              <Popover
+                className={css(styles.popover)}
+                body={<ImagePopover changeWidth={this.changeWidth}/>}
+                preferPlace='above'
+                onOuterAction={this.handleClick.bind(this)}
+                isOpen={this.state.open}>
+                <img
+                  src={this.props.data.imageFile[0].preview}
+                  ref='image'
+                  className={css(styles.image)}
+                  style={{width:this.state.width}}
+                  onClick={this.props.blockProps.getInitialReadOnly() ? null : this.handleClick.bind(this)}
+                />
+              </Popover>
+            </div>
+            <TextAreaAutoSize
+              onFocus={this._clearPlaceholder}
+              onBlur={this._putPlaceholder}
+              id='caption'
+              rows={1}
+              placeholder={this.state.placeholder}
+              className={css(styles.input)}
+              onChange={this._handleCaptionChange}
+              value={this.props.data.caption}
+            />
         </div>
       );
-    }
-    else {
+    } else {
       return (
         <div className={css(styles.titleBlock)}>
           {this.props.blockProps.getInitialReadOnly()
