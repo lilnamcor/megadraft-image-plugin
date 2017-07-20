@@ -32,7 +32,7 @@ export default class ImageComponent extends Component {
     this.props.changeWidth(size);
 
     this.setState({
-      active: icon.id
+      active: id
     });
   }
 
@@ -41,7 +41,9 @@ export default class ImageComponent extends Component {
       var fill = this.state.active === icon.id ? '#48e79a' : '#fff';
       var style = {fill: fill};
       return (
-        <SvgIcon fill={style} key={icon.id} path={icon.icon} onClick={() => this.setSize(icon.size, icon.id)} />
+        <div onClick={() => this.setSize(icon.size, icon.id)} className={css(styles.button)}>
+          <SvgIcon fill={style} key={icon.id} path={icon.icon} />
+        </div>
       );
     });
     return (
@@ -53,6 +55,9 @@ export default class ImageComponent extends Component {
 }
 
 var styles = StyleSheet.create({
+  button: {
+    cursor: 'pointer',
+  },
   reference: {
     fontFamily: 'Roboto',
     fontSize: '13px',
@@ -65,5 +70,8 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     zIndex: '2',
     padding: '10px',
+    display: 'flex',
+    width: '90px',
+    justifyContent: 'space-between',
   }
 });

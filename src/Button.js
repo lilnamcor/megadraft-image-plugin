@@ -20,8 +20,9 @@ export default class Button extends Component {
 
   onDrop(acceptedFiles, rejectedFiles) {
     const data = {
-      type:constants.PLUGIN_TYPE,
-      imageFile: acceptedFiles
+      type: constants.PLUGIN_TYPE,
+      imageFile: acceptedFiles[0],
+      imageSrc: acceptedFiles[0].preview,
     }
     this.props.onChange(insertDataBlock(this.props.editorState, data));
   }
