@@ -32,6 +32,7 @@ export default class Block extends Component {
         placeholder: "Type caption here (optional)",
         open: false,
         width: '75%',
+        focus: false,
     }
 
     this.actions = [
@@ -52,7 +53,10 @@ export default class Block extends Component {
   }
 
   handleClick(e) {
-    this.setState({open: !this.state.open});
+    this.setState({
+      open: !this.state.open,
+      focus: !this.state.focus,
+    });
   }
 
   handleClose(e) {
@@ -63,10 +67,28 @@ export default class Block extends Component {
     this.setState({width: width});
   }
 
+  handleClickOut = (e) => {
+    // mousedown event that removes the border from the image
+    if (this.image && !this.image.contains(e.target)) {
+      this.setState({
+        focus: false
+      });
+    }
+  }
+
   componentDidMount() {
     if (this.image)
       this.image.click();
+    var readOnly = this.props.blockProps.getInitialReadOnly();
+    
+    // Only add the mousedown event if we're not readonly.
+    readOnly ? document.addEventListener('mousedown', this.handleClickOut) : null
   }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOut);
+  }
+
 
   render(){
     // TODO: what do we render if we don't have an image?
@@ -85,7 +107,7 @@ export default class Block extends Component {
                       <img
                         src={this.props.data.imageSrc}
                         ref={(image) => this.image = image}
-                        className={css(styles.image)}
+                        className={css(styles.image, this.state.focus && styles.focus)}
                         style={{width:this.state.width}}
                         onClick={this.props.blockProps.getInitialReadOnly() ? null : this.handleClick.bind(this)}
                       />
@@ -139,5 +161,8 @@ var styles = StyleSheet.create({
   popover: {
     zIndex: '2',
   },
+  focus: {
+    border: '3px solid #48e79a',
+  }
 })
 
