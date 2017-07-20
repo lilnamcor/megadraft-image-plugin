@@ -8,7 +8,9 @@ import React, {Component} from "react";
 
 import TextAreaAutoSize from "react-textarea-autosize";
 
-import Popover from "react-simple-popover";
+import Popover from "react-popover";
+
+import ImagePopover from './ImagePopover.js';
 
 import {MegadraftPlugin, MegadraftIcons} from "megadraft";
 
@@ -18,15 +20,18 @@ const {BlockContent, BlockData, BlockInput, CommonBlock} = MegadraftPlugin;
 
 
 export default class Block extends Component {
+
   constructor(props) {
     super(props);
 
     this._handleCaptionChange = ::this._handleCaptionChange;
     this._clearPlaceholder = ::this._clearPlaceholder;
     this._putPlaceholder = ::this._putPlaceholder;
+    this.changeWidth = ::this.changeWidth;
     this.state = {
         placeholder: "Add a caption here",
         open: false,
+        width: '50%',
     }
 
     this.actions = [
@@ -54,6 +59,11 @@ export default class Block extends Component {
     this.setState({open: false});
   }
 
+  changeWidth(width) {
+    console.log(width);
+    this.setState({width: width});
+  }
+
   render(){
     if (this.props.data.imageFile) {
       return (
@@ -64,20 +74,19 @@ export default class Block extends Component {
                 </div>
             :   <div className={css(styles.inputWrapper)}>
                     <div className={css(styles.imageDiv)}>
-                      <img
-                        src={this.props.data.imageFile[0].preview}
-                        ref="image"
-                        className={css(styles.image)}
-                        onClick={this.handleClick.bind(this)}
-                      />
                       <Popover
-                        placement='top'
-                        container={this}
                         className={css(styles.popover)}
-                        target={this.refs.image}
-                        show={this.state.open}
-                        onHide={this.handleClose.bind(this)} >
-                        <p>This is popover</p>
+                        body={<ImagePopover changeWidth={this.changeWidth}/>}
+                        preferPlace='above'
+                        onOuterAction={this.handleClick.bind(this)}
+                        isOpen={this.state.open}>
+                        <img
+                          src={this.props.data.imageFile[0].preview}
+                          ref='image'
+                          className={css(styles.image)}
+                          style={{width:this.state.width}}
+                          onClick={this.handleClick.bind(this)}
+                        />
                       </Popover>
                     </div>
                     <TextAreaAutoSize
@@ -134,12 +143,11 @@ var styles = StyleSheet.create({
     overflow: 'hidden'
   },
   image: {
-    width: '100%',
     height: 'auto',
     overflow: 'hidden'
   },
   popover: {
-    marginTop: "-50px",
+    zIndex: '2',
   },
 })
 
