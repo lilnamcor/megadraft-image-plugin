@@ -29,7 +29,7 @@ export default class Block extends Component {
     this._putPlaceholder = ::this._putPlaceholder;
     this.changeWidth = ::this.changeWidth;
     this.state = {
-        placeholder: "Add a caption here",
+        placeholder: "Type caption here (optional)",
         open: false,
         width: '50%',
     }
@@ -48,7 +48,7 @@ export default class Block extends Component {
   }
 
   _putPlaceholder(event) {
-    this.setState({placeholder: "Add a caption here"});
+    this.setState({placeholder: "Type caption here (optional)"});
   }
 
   handleClick(e) {
@@ -118,7 +118,8 @@ var styles = StyleSheet.create({
   input: {
     border: 'none',
     outline: 'none',
-    fontSize: '24px',
+    fontSize: '14px',
+    color: 'rgba(0,0,0,.6)',
     paddingLeft: '15px',
     paddingBottom: '15px',
     width: '100%',
