@@ -16,7 +16,7 @@ import { smallIcon, mediumIcon, largeIcon } from './icons/svg';
 const ICONS = [
   {id: 'small', icon: smallIcon, width: '50%'},
   {id: 'medium', icon: mediumIcon, width: '75%'},
-  {id: 'large', icon: largeIcon, width: '100%'},
+  {id: 'large', icon: largeIcon, width: '99%'},
 ]
 
 export default class ImageComponent extends Component {
