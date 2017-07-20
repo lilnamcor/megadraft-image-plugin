@@ -63,6 +63,11 @@ export default class Block extends Component {
     this.setState({width: width});
   }
 
+  componentDidMount() {
+    if (this.image)
+      this.image.click();
+  }
+
   render(){
     // TODO: what do we render if we don't have an image?
     return (
@@ -79,7 +84,7 @@ export default class Block extends Component {
                       isOpen={this.state.open}>
                       <img
                         src={this.props.data.imageSrc}
-                        ref='image'
+                        ref={(image) => this.image = image}
                         className={css(styles.image)}
                         style={{width:this.state.width}}
                         onClick={this.props.blockProps.getInitialReadOnly() ? null : this.handleClick.bind(this)}
