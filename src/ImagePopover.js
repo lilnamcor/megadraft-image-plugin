@@ -14,9 +14,9 @@ import SvgIcon from './icons/SvgIcon';
 import { smallIcon, mediumIcon, largeIcon } from './icons/svg';
 
 const ICONS = [
-  {id: 'small', icon: smallIcon, size: '25%'},
-  {id: 'medium', icon: mediumIcon, size: '50%'},
-  {id: 'large', icon: largeIcon, size: '100%'},
+  {id: 'small', icon: smallIcon, width: '25%'},
+  {id: 'medium', icon: mediumIcon, width: '50%'},
+  {id: 'large', icon: largeIcon, width: '100%'},
 ]
 
 export default class ImageComponent extends Component {
@@ -28,8 +28,8 @@ export default class ImageComponent extends Component {
     }
   }
 
-  setSize(size, id) {
-    this.props.changeWidth(size);
+  setSize(width, id) {
+    this.props.changeWidth(width);
 
     this.setState({
       active: id
@@ -38,10 +38,10 @@ export default class ImageComponent extends Component {
 
   render() {
     var icons = ICONS.map((icon, index) => {
-      var fill = this.state.active === icon.id ? '#48e79a' : '#fff';
+      var fill = this.props.width === icon.width ? '#48e79a' : '#fff';
       var style = {fill: fill};
       return (
-        <div onClick={() => this.setSize(icon.size, icon.id)} className={css(styles.button)}>
+        <div onClick={() => this.setSize(icon.width, icon.id)} className={css(styles.button)}>
           <SvgIcon fill={style} key={icon.id} path={icon.icon} />
         </div>
       );

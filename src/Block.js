@@ -77,7 +77,7 @@ export default class Block extends Component {
                   <div className={css(styles.imageDiv)}>
                     <Popover
                       className={css(styles.popover)}
-                      body={<ImagePopover changeWidth={this.changeWidth}/>}
+                      body={<ImagePopover changeWidth={this.changeWidth} width={this.state.width} />}
                       preferPlace='above'
                       place="column"
                       onOuterAction={this.handleClick.bind(this)}
