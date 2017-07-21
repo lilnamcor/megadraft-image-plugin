@@ -1,6 +1,6 @@
 {
   "name": "megadraft-image-plugin",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "megadraft-image-plugin",
   "main": "lib/plugin.js",
   "dependencies": {
