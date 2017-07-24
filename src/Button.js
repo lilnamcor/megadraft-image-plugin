@@ -38,7 +38,6 @@ export default class Button extends Component {
       }
       this.props.onChange(insertDataBlock(this.props.editorState, data));
     } else {
-      debugger
       this.setState({open: true})
     }
   }
