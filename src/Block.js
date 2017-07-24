@@ -96,7 +96,7 @@ export default class Block extends Component {
     // TODO: what do we render if we don't have an image?
     var readOnly = this.props.blockProps.getInitialReadOnly();
     return (
-      <div className={styles}>
+      <div className={css(styles.inputWrapper)}>
           {this.props.data.imageSrc
             ?   <div className="block">
                   <div className={css(styles.imageDiv)}>
@@ -139,12 +139,12 @@ export default class Block extends Component {
 }
 
 var styles = StyleSheet.create({
-  overlay: {
+  inputWrapper: {
     width: '100%',
     textAlign: 'center',
 
   },
-  content: {
+  input: {
     border: 'none',
     outline: 'none',
     fontSize: '14px',
