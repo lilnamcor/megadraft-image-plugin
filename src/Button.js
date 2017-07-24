@@ -14,6 +14,8 @@ import {StyleSheet, css} from 'aphrodite';
 
 import FaTimes from 'react-icons/lib/fa/times-circle';
 
+import './Button.css';
+
 import Icon from "./icon.js";
 import constants from "./constants";
 import {insertDataBlock} from "megadraft";
