@@ -5,6 +5,9 @@
   "main": "lib/plugin.js",
   "dependencies": {
     "aphrodite": "^1.2.3",
+    "draft-js-alignment-plugin": "^2.0.0-rc3",
+    "draft-js-focus-plugin": "^2.0.0-rc3",
+    "draft-js-plugins-editor": "^2.0.0-rc3",
     "megadraft": "^0.4.26",
     "react": "15.2.1",
     "react-dom": "15.2.1",

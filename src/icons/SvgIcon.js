@@ -13,11 +13,11 @@ export default class SvgIcon extends Component {
 
   render() {
     return (
-      <span class="svgIcon svgIcon--imageInsetCenter svgIcon--25px">
-        <svg class="svgIcon-use" width="25" height="25" viewBox="0 0 25 25" style={this.props.fill}>
+      <span className="svgIcon svgIcon--imageInsetCenter svgIcon--25px">
+        <svg className="svgIcon-use" width="25" height="25" viewBox="0 0 25 25" style={this.props.fill}>
           <path
             d={this.props.path}
-            fill-rule="evenodd"
+            fillRule="evenodd"
           />
         </svg>
       </span>
