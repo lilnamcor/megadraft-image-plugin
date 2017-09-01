@@ -18,6 +18,11 @@ import Icon from "./icon.js";
 import constants from "./constants";
 import {insertDataBlock} from "megadraft";
 
+// IPFS Config
+import { ipfsConfig, IPFS_ADDRESS } from './ipfs-config';
+import { uploadFiles } from './ipfs-helper';
+
+const IPFS = window.Ipfs;
 
 export default class Button extends Component {
   constructor(props) {
@@ -30,15 +35,24 @@ export default class Button extends Component {
   }
 
   onDrop(acceptedFiles, rejectedFiles) {
-    if (acceptedFiles.length) {
-      const data = {
-        type: constants.PLUGIN_TYPE,
-        imageFile: acceptedFiles[0],
-        imageSrc: acceptedFiles[0].preview,
-      }
-      this.props.onChange(insertDataBlock(this.props.editorState, data));
+    if (acceptedFiles.length > 0) {
+      uploadFiles(acceptedFiles, this.node).then(result => {
+        var imageHash = result[0].hash;
+        const data = {
+          type: constants.PLUGIN_TYPE,
+          imagePreview: acceptedFiles[0].preview,
+          imageHash: imageHash,
+        }
+        this.props.onChange(insertDataBlock(this.props.editorState, data));
+      })
     } else {
       this.setState({open: true})
+    }
+  }
+
+  componentDidMount() {
+    if (IPFS) {
+      this.node = new IPFS(ipfsConfig);
     }
   }
 

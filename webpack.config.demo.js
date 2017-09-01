@@ -6,7 +6,8 @@
 
 module.exports = {
   entry: [
-    "./demo/main.js"
+    "babel-polyfill",
+    "./demo/main.js",
   ],
   output: {
     path: __dirname,
@@ -21,8 +22,9 @@ module.exports = {
   module: {
     loaders: [
       {
+        test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel"
+        loader: "babel-loader",
       },
       {
         test: /\.json$/,

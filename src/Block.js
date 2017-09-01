@@ -15,9 +15,13 @@ import ImagePopover from './ImagePopover.js';
 import {MegadraftPlugin, MegadraftIcons} from "megadraft";
 
 import {StyleSheet, css} from 'aphrodite';
+// IPFS Config
+import { ipfsConfig, IPFS_ADDRESS } from './ipfs-config';
+import { getFiles } from './ipfs-helper';
 
+const IPFS = window.Ipfs;
 const {BlockContent, BlockData, BlockInput, CommonBlock} = MegadraftPlugin;
-
+// TODO: import this from the NPM module instead. Using the <script> file for now because it's broken with webpack
 
 export default class Block extends Component {
 
@@ -33,6 +37,7 @@ export default class Block extends Component {
         open: false,
         width: '75%',
         focus: false,
+        ipfsConnected: false,
     }
 
     this.actions = [
@@ -85,6 +90,25 @@ export default class Block extends Component {
     if (readOnly) {
       document.addEventListener('mousedown', this.handleClickOut);
     }
+
+    if (IPFS) {
+      this.node = new IPFS(ipfsConfig);
+      this.node.on('ready', () => {
+        this.setState({
+          ipfsConnected: true,
+        });
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.ipfsConnected && !prevState.ipfsConnected) {
+      getFiles([this.props.data.imageHash], this.node).then((blobUrl) => {
+        this.setState({
+          blobUrl: blobUrl,
+        });
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -97,7 +121,7 @@ export default class Block extends Component {
     var readOnly = this.props.blockProps.getInitialReadOnly();
     return (
       <div className={css(styles.inputWrapper)}>
-          {this.props.data.imageSrc
+          {this.props.data.imageHash && this.state.blobUrl
             ?   <div className="block">
                   <div className={css(styles.imageDiv)}>
                     <Popover
@@ -108,7 +132,7 @@ export default class Block extends Component {
                       onOuterAction={this.handleClick.bind(this)}
                       isOpen={this.state.open}>
                       <img
-                        src={this.props.data.imageSrc}
+                        src={this.state.blobUrl}
                         ref={(image) => this.image = image}
                         className={css(styles.image, this.state.focus && styles.focus)}
                         style={{width:this.state.width}}
