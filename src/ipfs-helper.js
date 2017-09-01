@@ -5,7 +5,8 @@
 
 import secureRandom from 'secure-random';
 import Helpers from './helpers';
-import API from '../../Lunyr-Frontend/src/config/api';
+
+const HOST = window.location.host.includes('localhost') ? 'http://localhost:8080' : window.location.host.includes('quantfive') ? 'https://testnet.lunyr.com/golang' : '';
 
 function IPFSFetch(ipfsHash) {
   fetch('https://ipfs.io/ipfs/' + ipfsHash)
@@ -13,7 +14,7 @@ function IPFSFetch(ipfsHash) {
   .catch((error) => {
     // TODO: error handling here
   })
-  return fetch(API.IPFS_FETCH + ipfsHash, API.POST_CONFIG(null))
+  return fetch(HOST + '/ipfs-fetch/' + ipfsHash, {method: 'post', body: JSON.stringify(null), headers: { 'Content-Type': 'application/json'}})
   .then(Helpers.checkStatus)
   .then((json) => {
     return json;
@@ -42,10 +43,9 @@ export function uploadFiles(files, node) {
  * @param [multihashes] -- an array of multihash objects. most likely it's just one right now
  * @param node -- the IPFS node
  */
-export async function getFiles(multihashes, node, index) {
+export function getFiles(multihash, node, index) {
   var files = []
-  for (var i = 0; i < multihashes.length; i++) {
-    await ipfsGetFileByHash(multihashes[i], node)
+  return ipfsGetFileByHash(multihash, node)
     .then((file) => {
       // i think files will be an array of objects with fields
       // path and content
@@ -53,16 +53,18 @@ export async function getFiles(multihashes, node, index) {
       //   return files[0].content;
       if (file.length > 0)
         files.push(file[0].content);
+
+      if (!index)
+        return Promise.resolve(files);
+      else
+        return Promise.resolve([files[0], index]);
+
     })
     .catch((error) => {
       // TODO: error handling here
       console.log(error);
+      return Promise.reject(error);
     })
-  }
-  if (!index)
-    return Promise.resolve(files);
-  else
-    return Promise.resolve([files[0], index]);
 }
 
 /**

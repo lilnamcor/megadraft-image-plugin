@@ -103,7 +103,7 @@ export default class Block extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.ipfsConnected && !prevState.ipfsConnected) {
-      getFiles([this.props.data.imageHash], this.node).then((blobUrl) => {
+      getFiles(this.props.data.imageHash, this.node).then((blobUrl) => {
         this.setState({
           blobUrl: blobUrl,
         });

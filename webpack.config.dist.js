@@ -6,6 +6,7 @@
 
 module.exports = {
   entry: [
+    "babel-polyfill",
     "."
   ],
   output: {
@@ -28,8 +29,9 @@ module.exports = {
   module: {
     loaders: [
       {
+        test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel"
+        loader: "babel-loader",
       },
       {
         test: /\.json$/,

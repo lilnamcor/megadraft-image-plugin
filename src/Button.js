@@ -62,7 +62,7 @@ export default class Button extends Component {
 
   render() {
     return (
-      <div>
+      <div className={css(styles.imageButton)}>
         <Dropzone
           className={this.props.className}
           onDrop={(acceptedFiles, rejectedFiles) => this.onDrop(acceptedFiles, rejectedFiles)}
@@ -107,6 +107,9 @@ var styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: 'black',
     zIndex: '2',
+  },
+  imageButton: {
+    marginLeft: '2px',
   },
   content: {
     position: 'absolute',
