@@ -48,7 +48,7 @@ export default class Button extends Component {
 
   render() {
     return (
-      <div>
+      <div className={css(styles.button)}>
         <Dropzone
           className={this.props.className}
           onDrop={(acceptedFiles, rejectedFiles) => this.onDrop(acceptedFiles, rejectedFiles)}
@@ -85,6 +85,9 @@ export default class Button extends Component {
 }
 
 var styles = StyleSheet.create({
+  button: {
+    marginLeft: '2px',
+  },
   overlay: {
     position: 'fixed',
     top: 0,
