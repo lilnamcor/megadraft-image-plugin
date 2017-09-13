@@ -27,6 +27,25 @@ class Demo extends React.Component {
     this.setState({content});
   }
 
+  uploadFile(file) {
+    var data = new FormData();
+    data.append('ipfsfile', file)
+    return fetch('http://localhost:8080/ipfs-add', {
+      method: 'post',
+      body: data,
+    })
+    .then((result) => {
+      return result.json()
+      .then((json) => {
+        return json.hash
+      })
+    })
+  }
+
+  uploadCallback(hash) {
+    return `https://ipfs.io/ipfs/${hash}`
+  }
+
   render() {
     const pluginName = "megadraft-image-plugin";
     return (
@@ -36,7 +55,7 @@ class Demo extends React.Component {
           </header>
 
           <div className="editor">
-            <MegadraftEditor plugins={[plugin]} editorState={this.state.content} onChange={this.onChange} />
+            <MegadraftEditor plugins={[plugin({uploadFile: this.uploadFile, uploadCallback: this.uploadCallback})]} editorState={this.state.content} onChange={this.onChange} />
           </div>
         </div>
     );

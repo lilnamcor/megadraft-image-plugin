@@ -31,12 +31,12 @@ export default class Button extends Component {
 
   onDrop(acceptedFiles, rejectedFiles) {
     if (acceptedFiles.length) {
-      const data = {
+      const loader = {
         type: constants.PLUGIN_TYPE,
-        imageFile: acceptedFiles[0],
-        imageSrc: acceptedFiles[0].preview,
+        load: true,
+        file: acceptedFiles[0],
       }
-      this.props.onChange(insertDataBlock(this.props.editorState, data));
+      this.props.onChange(insertDataBlock(this.props.editorState, loader));
     } else {
       this.setState({open: true})
     }
