@@ -115,7 +115,7 @@ export default class Block extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.image && !this.state.imgClicked) {
+    if (this.image && !this.state.imgClicked && !this.props.blockProps.getInitialReadOnly()) {
       this.image.click();
       this.textArea.focus();
       this.setState({
