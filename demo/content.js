@@ -18,17 +18,5 @@ export default {
       inlineStyleRanges: [],
       entityRanges: []
     },
-    {
-      key: "9vgd",
-      type: "atomic",
-      depth: 0,
-      inlineStyleRanges: [],
-      text: "",
-      data: {
-        type: constants.PLUGIN_TYPE,
-        caption: "Plugin caption"
-      },
-      entityRanges: []
-    }
   ]
 };

@@ -33,7 +33,6 @@ export default class Block extends Component {
     this.state = {
         placeholder: "Type caption here (optional)",
         open: false,
-        width: '75%',
         focus: false,
     }
 
@@ -66,7 +65,7 @@ export default class Block extends Component {
   }
 
   changeWidth(width) {
-    this.setState({width: width});
+    this.props.container.updateData({width: width});
   }
 
   handleClickOut = (e) => {
@@ -91,6 +90,7 @@ export default class Block extends Component {
         load: false,
         file: null,
         type: this.props.data.type,
+        width: '75%',
       };
 
       this.props.container.updateData(data);
@@ -134,6 +134,7 @@ export default class Block extends Component {
       margin: "4px",
       ...this.props.blockProps.plugin.loadOptions,
     }
+
     return (
       <div className={css(styles.inputWrapper)}>
         <div className="block">
@@ -141,7 +142,7 @@ export default class Block extends Component {
             {this.props.data.imageSrc
               ?   <Popover
                     className={css(styles.popover)}
-                    body={<ImagePopover changeWidth={this.changeWidth} width={this.state.width} />}
+                    body={<ImagePopover changeWidth={this.changeWidth} width={this.props.data.width} />}
                     preferPlace='above'
                     place="column"
                     onOuterAction={this.handleClick.bind(this)}
@@ -150,7 +151,7 @@ export default class Block extends Component {
                       src={this.props.data.imageSrc}
                       ref={(image) => this.image = image}
                       className={css(styles.image, this.state.focus && styles.focus)}
-                      style={{width:this.state.width}}
+                      style={{width:this.props.data.width}}
                       onClick={readOnly ? null : this.handleClick.bind(this)}
                     />
                   </Popover>
