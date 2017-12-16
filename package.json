@@ -1,6 +1,6 @@
 {
   "name": "megadraft-image-plugin",
-  "version": "0.3.4",
+  "version": "0.3.6",
   "description": "megadraft-image-plugin",
   "main": "lib/plugin.js",
   "dependencies": {
@@ -8,7 +8,7 @@
     "draft-js-alignment-plugin": "^2.0.0-rc3",
     "draft-js-focus-plugin": "^2.0.0-rc3",
     "draft-js-plugins-editor": "^2.0.0-rc3",
-    "halogen": "^0.2.0",
+    "halogenium": "^2.2.3",
     "megadraft": "^0.4.26",
     "react": "15.2.1",
     "react-dom": "15.2.1",

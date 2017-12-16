@@ -16,7 +16,7 @@ import {MegadraftPlugin, MegadraftIcons} from "megadraft";
 
 import {StyleSheet, css} from 'aphrodite';
 
-import Loader from 'halogen/PulseLoader';
+import { PulseLoader } from 'halogenium';
 
 const {BlockContent, BlockData, BlockInput, CommonBlock} = MegadraftPlugin;
 
@@ -155,7 +155,7 @@ export default class Block extends Component {
                       onClick={readOnly ? null : this.handleClick.bind(this)}
                     />
                   </Popover>
-              :   <Loader {...loadOptions} />
+              :   <PulseLoader {...loadOptions} />
             }
           </div>
           {readOnly && this.props.data.caption || !readOnly

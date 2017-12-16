@@ -37,7 +37,7 @@ export default class ImageComponent extends Component {
       var fill = this.props.width === icon.width ? '#48e79a' : '#fff';
       var style = {fill: fill};
       return (
-        <div onClick={() => this.setSize(icon.width, icon.id)} className={css(styles.button)}>
+        <div key={`image_${icon.id}`} onClick={() => this.setSize(icon.width, icon.id)} className={css(styles.button)}>
           <SvgIcon fill={style} key={icon.id} path={icon.icon} />
         </div>
       );
