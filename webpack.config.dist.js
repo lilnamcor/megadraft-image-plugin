@@ -20,7 +20,6 @@ module.exports = {
     "react": "React",
     "react-dom": "ReactDOM"
   },
-  devtool: "source-map",
   devServer: {
     inline: true,
     contentBase: "./"
