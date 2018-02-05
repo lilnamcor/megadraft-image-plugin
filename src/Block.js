@@ -105,7 +105,7 @@ export default class Block extends Component {
       document.addEventListener('mousedown', this.handleClickOut);
     }
 
-    if (!this.props.data.imageSrc) {
+    if (!this.props.data.imageSrc && !readOnly) {
       this.uploadFile(this.props.data.file);
     }
   }
