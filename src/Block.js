@@ -165,7 +165,7 @@ export default class Block extends Component {
                   rows={1}
                   disabled={readOnly}
                   placeholder={this.state.placeholder}
-                  className={css(styles.input)}
+                  className={css(styles.input, readOnly && styles.readOnlyInput)}
                   onChange={this._handleCaptionChange}
                   value={this.props.data.caption}
                 />
@@ -183,6 +183,9 @@ var styles = StyleSheet.create({
     textAlign: 'center',
 
   },
+  readOnlyInput: {
+    background: 'transparent',
+  },
   input: {
     border: 'none',
     outline: 'none',
@@ -193,6 +196,7 @@ var styles = StyleSheet.create({
     width: '100%',
     textAlign: 'center',
     resize: 'none',
+    boxSizing: 'border-box',
   },
   imageDiv: {
     position: 'relative',
